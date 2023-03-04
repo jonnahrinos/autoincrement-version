@@ -1,10 +1,10 @@
 name: 'Auto Increment Version'
 description: 'Auto Increment Version'
 inputs:
-  file_path:
+  filepath:
     description: 'version.properties file path'
     required: true
-    default: null
+    default: ""
   major:
     description: 'Major version in version name'
     required: true
@@ -17,12 +17,12 @@ inputs:
     description: 'Patch version in version name'
     required: true
     default: true
-  version_code:
+  versioncode:
     description: 'Version Code to set'
     required: true
     default: 1
 runs:
   using: "composite"
   steps:
-    - run: ./autoincrement ${{file_path}}
+    - run: ./autoincrement ${{github.event.inputs.filepath}} ${{github.event.inputs.major}} ${{github.event.inputs.minor}} ${{github.event.inputs.patch}}
       shell: bash
