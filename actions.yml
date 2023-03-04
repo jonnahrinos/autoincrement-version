@@ -1,0 +1,28 @@
+name: 'Auto Increment Version'
+description: 'Auto Increment Version'
+inputs:
+  file_path:
+    description: 'version.properties file path'
+    required: true
+    default: null
+  major:
+    description: 'Major version in version name'
+    required: true
+    default: null
+  minor:
+    description: 'Minor version in version name'
+    required: true
+    default: null
+  patch:
+    description: 'Patch version in version name'
+    required: true
+    default: null
+  version_code:
+    description: 'Version Code to set'
+    required: true
+    default: null
+runs:
+  using: "composite"
+  steps:
+    - run: ./autoincrement ${{file_path}}
+      shell: bash
