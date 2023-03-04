@@ -10,13 +10,18 @@ echo 'Auto Increment version'
 #VERSION_NAME=1.1.1
 
 file=$1
+BUMP_MAJOR=$2
+BUMP_MINOR=$3
+BUMP_PATCH=$4
+
+echo "$file"
+echo "$BUMP_MAJOR"
+echo "$BUMP_MINOR"
+echo "$BUMP_PATCH"
 
 MAJOR_VERSION="1"
 MINOR_VERSION="1"
 PATCH_VERSION="1"
-BUMP_MAJOR=false
-BUMP_MINOR=false
-BUMP_PATCH=true
 
 while IFS='=' read -r key value;
 do

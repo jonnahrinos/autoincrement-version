@@ -8,19 +8,19 @@ inputs:
   major:
     description: 'Major version in version name'
     required: true
-    default: null
+    default: false
   minor:
     description: 'Minor version in version name'
     required: true
-    default: null
+    default: false
   patch:
     description: 'Patch version in version name'
     required: true
-    default: null
+    default: true
   version_code:
     description: 'Version Code to set'
     required: true
-    default: null
+    default: 1
 runs:
   using: "composite"
   steps:
