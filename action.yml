@@ -24,5 +24,13 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - run: ls -al
+      shell: bash
+    - run: ls .github/ -al
+      shell: bash
+    - run: find . -name '*autoincrement*'
+      shell: bash
+    - run: chmod +x autoincrement
+      shell: bash
     - run: ./autoincrement ${{github.event.inputs.filepath}} ${{github.event.inputs.major}} ${{github.event.inputs.minor}} ${{github.event.inputs.patch}}
       shell: bash
