@@ -15,11 +15,11 @@ BUMP_MINOR=$3
 BUMP_PATCH=$4
 NEW_VERSION_CODE=$5
 
-echo "$file"
-echo "$BUMP_MAJOR"
-echo "$BUMP_MINOR"
-echo "$BUMP_PATCH"
-echo "$VERSION_CODE"
+echo "File: $file"
+echo "Major: $BUMP_MAJOR"
+echo "Minor: $BUMP_MINOR"
+echo "Patch: $BUMP_PATCH"
+echo "Version Code: $NEW_VERSION_CODE"
 
 MAJOR_VERSION="1"
 MINOR_VERSION="1"
@@ -28,13 +28,13 @@ VERSION_CODE="1"
 
 while IFS='=' read -r key value;
 do
-  if [ "$key" == 'MAJOR' ]; then
+  if [ "$key" = 'MAJOR' ]; then
     MAJOR_VERSION=$value
-  elif [ "$key" == 'MINOR' ]; then
+  elif [ "$key" = 'MINOR' ]; then
     MINOR_VERSION=$value
-  elif [ "$key" == 'PATCH' ]; then
+  elif [ "$key" = 'PATCH' ]; then
     PATCH_VERSION=$value
-  elif [ "$key" == 'VERSION_CODE' ]; then
+  elif [ "$key" = 'VERSION_CODE' ]; then
     VERSION_CODE=$value
   fi
 done <"$file"
@@ -59,13 +59,23 @@ SEARCH_VERSION_CODE="VERSION_CODE=${VERSION_CODE}"
 REPLACE_VERSION_CODE="VERSION_CODE=${NEW_VERSION_CODE}"
 echo "$REPLACE_VERSION_CODE"
 
+chmod +x $file
 #Replace major
-sed -i '' -e "s/MAJOR=$MAJOR_VERSION/MAJOR=$NEW_MAJOR_VERSION/gi" $file
+sed -i -e "s/MAJOR=$MAJOR_VERSION/MAJOR=$NEW_MAJOR_VERSION/gi" $file
 #Replace minor
-sed -i '' -e "s/MINOR=$MINOR_VERSION/MINOR=$NEW_MINOR_VERSION/gi" $file
+sed -i -e "s/MINOR=$MINOR_VERSION/MINOR=$NEW_MINOR_VERSION/gi" $file
 #Replace patch
-sed -i '' -e "s/PATCH=$PATCH_VERSION/PATCH=$NEW_PATCH_VERSION/gi" $file
+sed -i -e "s/PATCH=$PATCH_VERSION/PATCH=$NEW_PATCH_VERSION/gi" $file
 #Replace version name
-sed -i '' -e "s/$SEARCH_VERSION_NAME/$REPLACE_VERSION_NAME/gi" $file
+sed -i -e "s/$SEARCH_VERSION_NAME/$REPLACE_VERSION_NAME/gi" $file
 #Replace version code
-sed -i '' -e "s/$SEARCH_VERSION_CODE/$REPLACE_VERSION_CODE/gi" $file
+sed -i -e "s/$SEARCH_VERSION_CODE/$REPLACE_VERSION_CODE/gi" $file
+
+
+if [ -n "$(git status --porcelain)" ]; then
+    echo -e "Uncommitted changes in your working copy."
+    git add $file
+    git commit -m "Updating version to ${NEW_MAJOR_VERSION}.${NEW_MINOR_VERSION}.${NEW_PATCH_VERSION}"
+    git push --force
+    exit 0
+fi
