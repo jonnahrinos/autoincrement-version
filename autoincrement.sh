@@ -73,7 +73,7 @@ sed -i -e "s/$SEARCH_VERSION_CODE/$REPLACE_VERSION_CODE/gi" $file
 
 
 if [ -n "$(git status --porcelain)" ]; then
-    echo -e "Uncommitted changes in your working copy."
+    echo "Uncommitted changes found in your working copy."
     git add $file
     git commit -m "Updating version to ${NEW_MAJOR_VERSION}.${NEW_MINOR_VERSION}.${NEW_PATCH_VERSION}"
     git push --force
