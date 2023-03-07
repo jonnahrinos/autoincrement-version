@@ -71,7 +71,7 @@ sed -i -e "s/$SEARCH_VERSION_NAME/$REPLACE_VERSION_NAME/gi" $file
 #Replace version code
 sed -i -e "s/$SEARCH_VERSION_CODE/$REPLACE_VERSION_CODE/gi" $file
 
-
+# Commit changed file to git
 if [ -n "$(git status --porcelain)" ]; then
     echo "Uncommitted changes found in your working copy."
     git add $file
