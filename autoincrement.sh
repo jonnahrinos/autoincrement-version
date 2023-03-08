@@ -14,6 +14,7 @@ BUMP_MAJOR=$2
 BUMP_MINOR=$3
 BUMP_PATCH=$4
 NEW_VERSION_CODE=$5
+AUTO_TAG_PREVIOUS_VERSION=$6
 
 echo "File: $file"
 echo "Major: $BUMP_MAJOR"
@@ -70,6 +71,12 @@ sed -i -e "s/PATCH=$PATCH_VERSION/PATCH=$NEW_PATCH_VERSION/gi" $file
 sed -i -e "s/$SEARCH_VERSION_NAME/$REPLACE_VERSION_NAME/gi" $file
 #Replace version code
 sed -i -e "s/$SEARCH_VERSION_CODE/$REPLACE_VERSION_CODE/gi" $file
+
+if $AUTO_TAG_PREVIOUS_VERSION; then
+  # Tag previous version
+  git tag -a v${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION} -m "Release v${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}"
+  git push --force
+fi
 
 # Commit changed file to git
 if [ -n "$(git status --porcelain)" ]; then

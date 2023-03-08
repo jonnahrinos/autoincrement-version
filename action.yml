@@ -21,6 +21,10 @@ inputs:
     description: 'Version Code to set'
     required: true
     default: 1
+  auto_tag_previous_version:
+    description: 'Tags previous version before the increment: default to true'
+    required: true
+    default: true
 runs:
   using: "composite"
   steps:
@@ -28,5 +32,5 @@ runs:
       shell: bash
     - run: chmod +x ${{ github.action_path }}/autoincrement.sh
       shell: bash
-    - run: autoincrement.sh ${{github.workspace}}/app/${{inputs.filepath}} ${{inputs.major}} ${{inputs.minor}} ${{inputs.patch}} ${{inputs.versioncode}}
+    - run: autoincrement.sh ${{github.workspace}}/app/${{inputs.filepath}} ${{inputs.major}} ${{inputs.minor}} ${{inputs.patch}} ${{inputs.versioncode}} ${{inputs.auto_tag_previous_version}}
       shell: bash
