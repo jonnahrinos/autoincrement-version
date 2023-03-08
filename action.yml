@@ -8,14 +8,17 @@ inputs:
   major:
     description: 'Major version in version name'
     required: true
+    type: boolean
     default: false
   minor:
     description: 'Minor version in version name'
     required: true
+    type: boolean
     default: false
   patch:
     description: 'Patch version in version name'
     required: true
+    type: boolean
     default: true
   versioncode:
     description: 'Version Code to set'
@@ -23,6 +26,7 @@ inputs:
     default: 1
   auto_tag_previous_version:
     description: 'Tags previous version before the increment: default to true'
+    type: boolean
     required: true
     default: true
 runs:

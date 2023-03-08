@@ -21,6 +21,7 @@ echo "Major: $BUMP_MAJOR"
 echo "Minor: $BUMP_MINOR"
 echo "Patch: $BUMP_PATCH"
 echo "Version Code: $NEW_VERSION_CODE"
+echo "Auto tag previous: $AUTO_TAG_PREVIOUS_VERSION"
 
 MAJOR_VERSION="1"
 MINOR_VERSION="1"
@@ -74,8 +75,10 @@ sed -i -e "s/$SEARCH_VERSION_CODE/$REPLACE_VERSION_CODE/gi" $file
 
 if $AUTO_TAG_PREVIOUS_VERSION; then
   # Tag previous version
-  git tag -a v${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION} -m "Release v${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}"
-  git push --force
+  tag=v${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}
+  echo "Tagging previous version $tag"
+  git tag -a $tag -m "Release $tag"
+  git push origin $tag
 fi
 
 # Commit changed file to git
